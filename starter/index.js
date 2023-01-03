@@ -86,3 +86,106 @@ var finances = [
 ['Jan-2017', 138230],
 ['Feb-2017', 671099]
 ];
+
+
+
+let months = [];
+let monies = [];
+console.log(finances.length);
+
+// seperate into 2 arrays
+for(let x = 0; x < finances.length; x++){
+       months.push(finances[x][0]);
+       monies.push(finances[x][1]);
+       
+}
+console.log(months);
+console.log(monies);
+//function that adds all the money together
+const sum = monies.reduce((accumulator, value) => {
+    return accumulator + value;
+  }, 0);
+
+let totalMonths = months.length;
+console.log(`Total sum: ${sum} Amount of months: ${monies.length}`);
+
+let profitChange = [];
+for(let pC = 1; pC < monies.length; pC++){
+    profitChange.push(monies[pC] - monies[pC - 1]); 
+}
+
+console.log(profitChange);
+const profitSum = profitChange.reduce((accumulator, value) => {
+  return accumulator + value;
+}, 0);
+
+
+let averageChanges = Math.round(profitSum / profitChange.length * 100) / 100;
+console.log(averageChanges);
+
+let greatestIncrease = 0;
+let greatestIncreaseMonth = "";
+
+
+for(let n = 1; n < finances.length; n++){
+  const currentMonthBalance = finances[n][1];
+  const previousMonthBalance = finances[n - 1][1];
+  const difference = currentMonthBalance - previousMonthBalance;
+
+  if(difference > greatestIncrease){
+    greatestIncrease = difference;
+    greatestIncreaseMonth = finances[n][0];
+  }
+};
+
+console.log(greatestIncrease);
+console.log(greatestIncreaseMonth);
+
+let greatestDecrease = 0;
+let greatestDecreaseMonth = "";
+
+for(let v = 1; v < finances.length; v++){
+  const currentMB = finances[v][1];
+  const previousMB = finances[v - 1][1];
+  if(currentMB < previousMB){
+    const diff = Math.abs(currentMB - previousMB);
+    console.log(diff);
+    console.log(greatestDecrease);
+    if(diff > greatestDecrease){
+      greatestDecrease = diff;
+      greatestDecreaseMonth = finances[v][0];
+    }
+  }
+}
+console.log(greatestDecrease);
+console.log(greatestDecreaseMonth);
+
+// put months and numbers into seperate array?
+
+// date & profit/losses
+// write code that analyses these records and calculates the following:
+//  -The total number of months included in the dataset DONE
+
+//  -The net total amount of profit/losses over the entire period DONE
+
+//  -The average of the changes in profit/losses over the entire period
+
+// will need to track what the total change in profits are from month to month and then find the average
+// total * number of months DONE
+
+// the greatest increase in profits with date & amount 
+
+// greatest decrease in profits w/ date & amount
+
+
+// Financial Analysis
+// ----------------------------
+// Total Months: 86
+// Total: $38382578
+// Average  Change: $-2315.12
+// Greatest Increase in Profits: Feb-2012 ($1926159)
+// Greatest Decrease in Profits: Sep-2013 ($-2196167)
+// ['Sep-2013', -1196225],
+
+
+console.log(`Financial Analysis \n ---------------------------- \n Total months: ${months.length} \n Total: $${sum} \n Average Change: $${averageChanges}\n Greatest Increase in Profits: ${greatestIncreaseMonth}[${greatestIncrease}]\n Greatest Decrease in Profits: ${greatestDecreaseMonth} [-${greatestDecrease}]\n`)
